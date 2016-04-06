@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 			throw new PersonAlreadyExistsException(
 			        String.format("There already exists a person with id=%s", person.getId()));
 		}
-		return null;
+		return personRepository.save(person);
 	}
 
 	/*

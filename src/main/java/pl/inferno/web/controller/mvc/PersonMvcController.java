@@ -39,11 +39,12 @@ public class PersonMvcController extends AbstractController {
 	public ModelAndView getCreatePersonView() {
 		logger.debug(MVC + "Received request for person create view");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("create_person");
+		modelAndView.setViewName("person_create");
 		modelAndView.addObject("form", new PersonForm());
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/person_create.html", method = RequestMethod.POST)
 	public String submitPerson(@ModelAttribute("form") @Valid PersonForm form, BindingResult result) {
 		logger.debug(MVC + "Received request to create {}, with result={}", form, result);
 		if (result.hasErrors()) {
