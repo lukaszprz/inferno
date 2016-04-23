@@ -3,12 +3,12 @@
  */
 package pl.inferno.web.model.form;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.google.common.base.Objects;
+import pl.inferno.validation.annotation.Pesel;
 
 /**
  * @author lukasz
@@ -24,29 +24,16 @@ public class PersonForm {
 	@Size(max = 125)
 	private String lastName;
 
-	@NotEmpty
-	@Size(max = 128)
-	private String street;
+	@Pesel
+	private String pesel;
 
-	@NotEmpty
-	@Size(max = 5)
-	private String buildingNumber;
+	@Valid
+	private AddressForm address;
 
-	@Size(max = 5)
-	private String flatNumber;
+	@Valid
+	private AddressForm correspondenceAddress;
 
-	@NotEmpty
-	@Size(max = 250)
-	private String city;
-
-	@NotEmpty
-	@Size(max = 250)
-	private String district;
-
-	@NotEmpty
-	@Size(min = 6, max = 6)
-	@Pattern(regexp = "[0-9]{2}-[0-9]{3}")
-	private String postCode;
+	private boolean otherCorrespondenceAddress = false;
 
 	/**
 	 * @return the firstName
@@ -79,106 +66,91 @@ public class PersonForm {
 	}
 
 	/**
-	 * @return the street
+	 * Getter for pesel
+	 *
+	 * @return the pesel
 	 */
-	public String getStreet() {
-		return street;
+	public String getPesel() {
+		return pesel;
 	}
 
 	/**
-	 * @param street
-	 *            the street to set
+	 * Setter for pesel
+	 *
+	 * @param pesel
+	 *            the pesel to set
 	 */
-	public void setStreet(String street) {
-		this.street = street;
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
 	}
 
 	/**
-	 * @return the buildingNumber
+	 * Getter for address
+	 *
+	 * @return the address
 	 */
-	public String getBuildingNumber() {
-		return buildingNumber;
+	public AddressForm getAddress() {
+		return address;
 	}
 
 	/**
-	 * @param buildingNumber
-	 *            the buildingNumber to set
+	 * Setter for address
+	 *
+	 * @param address
+	 *            the address to set
 	 */
-	public void setBuildingNumber(String buildingNumber) {
-		this.buildingNumber = buildingNumber;
+	public void setAddress(AddressForm address) {
+		this.address = address;
 	}
 
 	/**
-	 * @return the flatNumber
+	 * Getter for correspondenceAddress
+	 *
+	 * @return the correspondenceAddress
 	 */
-	public String getFlatNumber() {
-		return flatNumber;
+	public AddressForm getCorrespondenceAddress() {
+		return correspondenceAddress;
 	}
 
 	/**
-	 * @param flatNumber
-	 *            the flatNumber to set
+	 * Setter for correspondenceAddress
+	 *
+	 * @param correspondenceAddress
+	 *            the correspondenceAddress to set
 	 */
-	public void setFlatNumber(String flatNumber) {
-		this.flatNumber = flatNumber;
+	public void setCorrespondenceAddress(AddressForm correspondenceAddress) {
+		this.correspondenceAddress = correspondenceAddress;
 	}
 
 	/**
-	 * @return the city
+	 * Getter for otherCorrespondenceAddress
+	 *
+	 * @return the otherCorrespondenceAddress
 	 */
-	public String getCity() {
-		return city;
+	public boolean isOtherCorrespondenceAddress() {
+		return otherCorrespondenceAddress;
 	}
 
 	/**
-	 * @param city
-	 *            the city to set
+	 * Setter for otherCorrespondenceAddress
+	 *
+	 * @param otherCorrespondenceAddress
+	 *            the otherCorrespondenceAddress to set
 	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * @return the district
-	 */
-	public String getDistrict() {
-		return district;
-	}
-
-	/**
-	 * @param district
-	 *            the district to set
-	 */
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	/**
-	 * @return the postCode
-	 */
-	public String getPostCode() {
-		return postCode;
-	}
-
-	/**
-	 * @param postCode
-	 *            the postCode to set
-	 */
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
+	public void setOtherCorrespondenceAddress(boolean otherCorrespondenceAddress) {
+		this.otherCorrespondenceAddress = otherCorrespondenceAddress;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-
-		return Objects.toStringHelper(this).add("firstName", firstName).add("lastName", lastName).add("street", street)
-		        .add("buildingNumber", buildingNumber).add("flatNumber", flatNumber).add("city", city)
-		        .add("district", district).add("postCode", postCode).toString();
+		return String.format(
+		        "PersonForm [firstName=%s, lastName=%s, pesel=%s, address=%s, correspondenceAddress=%s, otherCorrespondenceAddress=%s]",
+		        firstName, lastName, pesel, address, correspondenceAddress, otherCorrespondenceAddress);
 	}
 
 }
